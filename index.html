@@ -3,7 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Weather Dashboard</title>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <h1>🌤️ Weather Dasboard</h1>
+
+      <!-- Search Section -->
+      <form id="Weather-fomr">
+        <input
+          type="text"
+          id="city-input"
+          placeholder="Enter city name"
+          required
+        />
+        <button type="submit">Get Weather</button>
+      </form>
+
+      <!-- Error Message -->
+      <p id="error-message" class="hidden"></p>
+
+      <!-- Weather Display Section -->
+      <div id="weather-result" class="hidden">
+        <h2 id="city-name"></h2>
+        <div class="weather-info">
+          <img id="weather-icon" alt="Weather Icon" />
+          <p id="description"></p>
+          <p><strong>Temperature:</strong> <span id="temperature"></span>°C</p>
+          <p><strong>Humidity:</strong> <span id="humidity"></span>%</p>
+          <p><strong>Wind:</strong> <span id="wind-speed"></span>km/h</p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
