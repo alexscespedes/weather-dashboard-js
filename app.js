@@ -22,17 +22,28 @@ form.addEventListener("submit", async (event) => {
 
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/weather?q=${encodeURIComponent(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
         city
       )}&appid=${API_KEY}&units=metric`
     );
 
+    console.log("Fetch response:", response);
+
     if (!response.ok) {
-      throw new Error("City not found");
+      const errorData = await response.json();
+      console.error("Error response:", errorData);
+      throw new Error(
+        errorData.message
+          ? `API error: ${errorData.message}`
+          : `HTTP error: ${response.status}`
+      );
     }
 
     const data = await response.json();
 
+    console.log("weather data:", data);
+
+    // Update UI with data
     cityName.textContent = `${data.name}, ${data.sys.country}`;
     description.textContent = data.weather[0].description;
     temperature.textContent = data.main.temp.toFixed(1);
@@ -43,7 +54,8 @@ form.addEventListener("submit", async (event) => {
 
     weatherResult.classList.remove("hidden");
   } catch (error) {
-    errorMessage.textContent = error.message;
+    console.error("Caught error:", error);
+    errorMessage.textContent = error.message || "An error occurred.";
     errorMessage.classList.remove("hidden");
   }
 });
